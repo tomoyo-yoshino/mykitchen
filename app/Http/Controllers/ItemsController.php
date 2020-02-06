@@ -49,6 +49,10 @@ class ItemsController extends Controller
     // postでitems/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'content' => 'required|max:191',    
+        ]);
+        
         $item = new Item;
         $item->content = $request->content;
         $item->save();
@@ -101,6 +105,10 @@ class ItemsController extends Controller
     // putまたはpatchでitems/idにアクセスされた場合の「更新処理」
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'content' => 'required|max:191',   
+        ]);
+        
         $item = Item::find($id);
         $item->content = $request->content;
         $item->save();
