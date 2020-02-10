@@ -17,7 +17,7 @@ class ItemsController extends Controller
     // getでitems/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
-        $items = Item::all();
+        $items = Item::paginate(25);
         
         return view('items.index', [
             'items' => $items,

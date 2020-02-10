@@ -23,6 +23,8 @@
         </table>
     @endif
     
+    {{ $items->links('pagination::bootstrap-4') }}
+    
     {!! link_to_route('items.create', '新規アイテムの投稿', [], ['class' => 'btn btn-primary']) !!}
 
 @endsection
