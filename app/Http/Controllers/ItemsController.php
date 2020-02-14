@@ -11,7 +11,7 @@ class ItemsController extends Controller
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
-            $items = $user->items()->orderBy('created_at', 'desc')->paginate(10);
+            $items = $user->feed_items()->orderBy('created_at', 'desc')->paginate(10);
             
             $data = [
                 'user' => $user,
