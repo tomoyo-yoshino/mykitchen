@@ -4,131 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Item;    // 追加
-
-
 class ItemsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // getでitems/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
-        $items = Item::paginate(25);
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $items = $user->items()->orderBy('created_at', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'items' => $items,
+            ];
+        }
         
-        return view('items.index', [
-            'items' => $items,
-            ]);
+        return view('welcome', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // getでitems/createにアクセスされた場合の「新規登録画面表示処理」
-    public function create()
-    {
-        $item = new Item;
-        
-        return view('items.create', [
-            'item' => $item,   
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-     
-    // postでitems/にアクセスされた場合の「新規登録処理」
+    
     public function store(Request $request)
     {
         $this->validate($request, [
-            'content' => 'required|max:191',    
+            'content' => 'required|max:191',
         ]);
         
-        $item = new Item;
-        $item->content = $request->content;
-        $item->save();
+        $request->user()->items()->create([
+            'content' => $request->content,
+        ]);
         
-        return redirect('/');
+        return back();
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     
-     // getでitems/idにアクセスされた場合の「取得表示処理」
-    public function show($id)
-    {
-        $item = Item::find($id);
-        
-        return view('items.show', [
-            'item' => $item,    
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     
-    // getでitems/id/editにアクセスされた場合の「更新画面表示処理」
-    public function edit($id)
-    {
-        $item = Item::find($id);
-        
-        return view('items.edit', [
-            'item' =>$item, 
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     
-    // putまたはpatchでitems/idにアクセスされた場合の「更新処理」
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'content' => 'required|max:191',   
-        ]);
-        
-        $item = Item::find($id);
-        $item->content = $request->content;
-        $item->save();
-        
-        return redirect('/');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     
-    // deleteでitems/idにアクセスされた場合の「削除処理」
     public function destroy($id)
     {
-        $item = Item::find($id);
-        $item->delete();
+        $item = \App\Item::find($id);
         
-        return redirect('/');
+        if (\Auth::id() === $item->user_id) {
+            $item->delete();
+        }
+        
+        return back();
     }
 }
