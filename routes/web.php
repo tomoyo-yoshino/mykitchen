@@ -10,12 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', 'ItemsController@index');
 
 //ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 
 //ログイン認証
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -33,6 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('followers', 'UsersController@followers')->name('users.followers');
     });
     
-    Route::resource('items', 'ItemsController', ['only' => ['store', 'destroy']]);
+    Route::resource('items', 'ItemsController');
     
 });

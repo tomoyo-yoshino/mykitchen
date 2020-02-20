@@ -23,8 +23,10 @@
    @else
         <div class="center jumpbotron">
             <div class="text-center">
-                <h1>Welcome to the MyKitchen</h1>
+                <h1>MyKitchen</h1>
+                
                 {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
+                
             </div>
         </div>
     @endif
