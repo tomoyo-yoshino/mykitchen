@@ -21,7 +21,7 @@
             </div>
         </div>
    @else
-        <div class="center jumpbotron">
+        <div class="center jumbotron">
             <div class="text-center">
                 <h1>MyKitchen</h1>
                 
