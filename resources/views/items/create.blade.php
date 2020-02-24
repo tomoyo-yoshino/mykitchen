@@ -2,26 +2,23 @@
 
 @section('content')
 
-    @if (count($errors) > 0)
-        <ul class="alert alert-danger" role="alert">
-            @foreach ($errors->all() as $error)
-                <li class="ml-4">{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-
-    <h1>アイテム新規登録ページ</h1>
+    <h1>New Post</h1>
     
     <div class="row">
         <div class="col-6">
             {!! Form::model($item, ['route' => 'items.store']) !!}
             
                 <div class="form-group">
-                    {!! Form::label('content', 'アイテム:') !!}
-                    {!! Form::text('content', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('name', 'Item Name:') !!}
+                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
                 
-                {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
+                <div class="form-group">
+                    {!! Form::label('description', 'Description') !!}
+                    {!! Form::text('description', null, ['class' => 'form-control']) !!}
+                </div>
+                
+                {!! Form::submit('POST', ['class' => 'btn btn-primary']) !!}
                 
             {!! Form::close() !!}
         </div>

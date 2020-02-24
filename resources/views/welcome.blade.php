@@ -9,9 +9,17 @@
             <div class="col-sm-8">
                     {!! Form::open(['route' => 'items.store']) !!}
                         <div class="form-group">
-                            {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '2']) !!}
-                            {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
-                        </div>
+                        {!! Form::label('name', 'Item Name:') !!}
+                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    </div>
+                
+                    <div class="form-group">
+                        {!! Form::label('description', 'Description') !!}
+                        {!! Form::text('description', null, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                         {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
+                    </div>
                     {!! Form::close() !!}
             </div>
         </div>

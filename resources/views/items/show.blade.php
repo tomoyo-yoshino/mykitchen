@@ -10,8 +10,12 @@
             <td>{{ $item->id }}</td>
         </tr>
         <tr>
-            <th>アイテム</th>
-            <td>{{ $item->content }}</td>
+            <th>ItemName</th>
+            <td>{{ $item->name }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ $item->description }}</td>
         </tr>
     </table>
     

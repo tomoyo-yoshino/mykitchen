@@ -9,14 +9,16 @@
             <thead>
                 <tr>
                     <th>ItemID</th>
-                    <th>Name</th>
+                    <th>ItemName</th>
+                    <th>Description</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($items as $item)
                 <tr>
                     <td>{!! link_to_route('items.show', $item->id, ['id' => $item->id]) !!}</td>
-                    <td>{{ $item->content }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->description }}</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -35,6 +35,7 @@ class ItemsController extends Controller
     {
         $this->validate($request, [
             'content' => 'required|max:191',
+            'description' => 'required|max:191',
         ]);
         
         $request->user()->items()->create([
@@ -67,8 +68,14 @@ class ItemsController extends Controller
     // putまたはpatchでitems/idにアクセスされた場合の「更新処理」
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'content' => 'required|max:191',
+            'description' => 'required|max:191',
+        ]);
+        
         $item = Item::find($id);
         $item->content = $request->content;
+        $item->description = $request->description;
         $item->save();
         
         return redirect('/');
