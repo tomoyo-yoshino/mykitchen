@@ -5,7 +5,12 @@
             <div class="media-body">
                 <div>
                     {!! link_to_route('users.show', $item->user->name, ['id' => $item->user->id]) !!} <span class="text-muted">posted at {{ $item->created_at }}</span>
-                    
+                </div>
+                <div>
+                    {{ $item->name }}
+                </div>
+                <div>
+                    {{ $item->description }}
                 </div>
                 <div>
                     <p class="mb-0">{!! nl2br(e($item->content)) !!}</p>

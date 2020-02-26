@@ -4,24 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Item;
+
 
 class ItemsController extends Controller
 {
     // getでitemss/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
-      
-       $data = [];
-        if (\Auth::check()) {
-            $user = \Auth::user();
-            $items = $user->feed_items()->orderBy('created_at', 'desc')->paginate(10);
-
-            $data = [
-                'user' => $user,
-                'items' => $items,
-            ];
-        }
- 
+        $items = Item::paginate(10);
+        
         return view('items.index', [
             'items' => $items,
         ]);
