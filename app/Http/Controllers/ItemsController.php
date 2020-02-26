@@ -4,16 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Item;
-
 
 class ItemsController extends Controller
 {
     // getでitemss/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
-        $items = Item::paginate(10);
-        
+      
+       $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $items = $user->feed_items()->orderBy('created_at', 'desc')->paginate(10);
+
+            $data = [
+                'user' => $user,
+                'items' => $items,
+            ];
+        }
+ 
         return view('items.index', [
             'items' => $items,
         ]);
@@ -33,14 +41,17 @@ class ItemsController extends Controller
     // postでitems/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
+        
         $this->validate($request, [
-            'content' => 'required|max:191',
+            'name' => 'required|max:191',
             'description' => 'required|max:191',
         ]);
         
-        $request->user()->items()->create([
-            'content' => $request->content,
-        ]);
+        $item = new Item;
+        $item->user_id = \Auth::id();
+        $item->name = $request->name;
+        $item->description = $request->description;
+        $item->save();
         
         return back();
     }
@@ -69,12 +80,12 @@ class ItemsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'content' => 'required|max:191',
+            'name' => 'required|max:191',
             'description' => 'required|max:191',
         ]);
         
         $item = Item::find($id);
-        $item->content = $request->content;
+        $item->name = $request->name;
         $item->description = $request->description;
         $item->save();
         

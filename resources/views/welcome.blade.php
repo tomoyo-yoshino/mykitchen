@@ -9,18 +9,22 @@
             <div class="col-sm-8">
                     {!! Form::open(['route' => 'items.store']) !!}
                         <div class="form-group">
-                        {!! Form::label('name', 'Item Name:') !!}
-                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                    </div>
+                            {!! Form::label('name', 'Item Name:') !!}
+                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                        </div>
                 
-                    <div class="form-group">
-                        {!! Form::label('description', 'Description') !!}
-                        {!! Form::text('description', null, ['class' => 'form-control']) !!}
-                    </div>
-                    <div class="form-group">
-                         {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
-                    </div>
+                        <div class="form-group">
+                            {!! Form::label('description', 'Description') !!}
+                            {!! Form::text('description', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                             {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
+                        </div>
                     {!! Form::close() !!}
+                    
+                    @if (count($item) > 0)
+                        @include('items.items', ['items' => $items])
+                    @endif
             </div>
         </div>
    @else
@@ -30,6 +34,5 @@
                 {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
             </div>
         </div>
-       
     @endif
 @endsection
