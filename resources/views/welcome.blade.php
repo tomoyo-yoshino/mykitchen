@@ -22,6 +22,7 @@
                         </div>
                     {!! Form::close() !!}
                     
+                    
                     @if (count($items) > 0)
                         @include('items.items', ['items' => $items])
                     @endif

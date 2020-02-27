@@ -23,7 +23,13 @@ class ItemsController extends Controller
     public function create()
     {
         
-        $item = new Item;
+       
+        
+        if($request->isMethod('POST')) {
+            $path = $request->file('image_file')->store('public/img');
+            Item::create(['file_name' => basename($path)]);
+            return redirect('/')->with(['success' => 'ファイルを保存しました']);
+        }
         
         return view('items.create', [
             'item' => $item,
