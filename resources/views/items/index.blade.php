@@ -11,6 +11,7 @@
                     <th>ItemID</th>
                     <th>ItemName</th>
                     <th>Description</th>
+                    <th>Image</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +20,13 @@
                     <td>{!! link_to_route('items.show', $item->id, ['id' => $item->id]) !!}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->description }}</td>
+                    <td>
+                        @if ($item->file_name)
+                            <img src="{{ asset('storage/' . $item->file_name) }}" width="100">
+                        @else
+                        
+                        @endif
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

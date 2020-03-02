@@ -22,6 +22,8 @@
                         </div>
                     {!! Form::close() !!}
                     
+                    <img src="{{ asset('/storage/img/'.$item->file_name) }}">
+                    
                     
                     @if (count($items) > 0)
                         @include('items.items', ['items' => $items])

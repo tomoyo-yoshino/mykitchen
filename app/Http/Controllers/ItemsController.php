@@ -20,21 +20,13 @@ class ItemsController extends Controller
     }
     
     // getでitems/createにアクセスされた場合の「新規登録画面表示処理」
-    public function create()
+    public function create(Request $request)
     {
-        
-       
-        
-        if($request->isMethod('POST')) {
-            $path = $request->file('image_file')->store('public/img');
-            Item::create(['file_name' => basename($path)]);
-            return redirect('/')->with(['success' => 'ファイルを保存しました']);
-        }
-        
-        return view('items.create', [
-            'item' => $item,
+        return view ('items.create', [
+            'items' => Item::make()
         ]);
     }
+    
     
     // postでitems/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
@@ -43,15 +35,21 @@ class ItemsController extends Controller
         $this->validate($request, [
             'name' => 'required|max:191',
             'description' => 'required|max:191',
+            'file' => 'nullable|file',
         ]);
         
         $item = new Item;
         $item->user_id = \Auth::id();
         $item->name = $request->name;
         $item->description = $request->description;
+        
+        if ($file = $request->file('file')) {
+            $item->file_name = $file->store('items');
+        }
+        
         $item->save();
         
-        return back();
+        return redirect()->route('items.index');
     }
     
     // getでitems/idにアクセスされた場合の「取得表示処理」
@@ -80,6 +78,7 @@ class ItemsController extends Controller
         $this->validate($request, [
             'name' => 'required|max:191',
             'description' => 'required|max:191',
+            'file_name' => 'required|max:191',
         ]);
         
         $item = Item::find($id);

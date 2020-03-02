@@ -18,6 +18,11 @@
                     {!! Form::text('description', null, ['class' => 'form-control']) !!}
                 </div>
                 
+                <div class="form-group">
+                    {!! Form::label('file_name', 'FileName') !!}
+                    {!! Form::text('file_name', null, ['class' => 'form-control']) !!}
+                </div>
+                
                 {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
                 
             {!! Form::close() !!}
