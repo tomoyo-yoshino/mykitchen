@@ -12,6 +12,16 @@
                 <div>
                     {{ $item->description }}
                 </div>
+                
+                <div>
+                    @if ($item->file_name)
+                        <img src="{{ asset('storage/' . $item->file_name) }}" width="100">
+                    @else
+                        
+                    @endif
+                </div>
+                
+                
                 <div>
                     <p class="mb-0">{!! nl2br(e($item->content)) !!}</p>
                 </div>

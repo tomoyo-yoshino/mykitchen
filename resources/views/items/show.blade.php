@@ -17,6 +17,16 @@
             <th>Description</th>
             <td>{{ $item->description }}</td>
         </tr>
+        <tr>
+            <th>Image</th>
+            <td>
+                @if ($item->file_name)
+                    <img src="{{ asset('storage/' . $item->file_name) }}" width="100">
+                @else
+                
+                @endif
+            </td>
+        </tr>
     </table>
     
     {!! link_to_route('items.edit', 'このアイテムを編集', ['id' => $item->id], ['class' => 'btn btn-light']) !!}

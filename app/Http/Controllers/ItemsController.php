@@ -23,7 +23,7 @@ class ItemsController extends Controller
     public function create(Request $request)
     {
         return view ('items.create', [
-            'items' => Item::make()
+            'item' => Item::make()
         ]);
     }
     
@@ -98,6 +98,6 @@ class ItemsController extends Controller
             $item->delete();
         }
         
-        return back();
+        return redirect()->route('items.index');
     }
 }
