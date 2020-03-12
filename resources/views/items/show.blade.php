@@ -20,11 +20,7 @@
         <tr>
             <th>Image</th>
             <td>
-                @if ($item->file_name)
-                    <img src="{{ asset('storage/' . $item->file_name) }}" width="100">
-                @else
-                
-                @endif
+                <img src="{{ Storage::disk('s3')->url(Auth::user()->file_name) }}">
             </td>
         </tr>
     </table>

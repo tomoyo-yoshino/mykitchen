@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Item;
+use Illuminate\Support\Facades\Storage;
 
 
 class ItemsController extends Controller
@@ -39,14 +40,17 @@ class ItemsController extends Controller
         ]);
         
         $item = new Item;
+        
+
+        $path = Storage::disk('s3')->put('/',$item, 'public');
+        
+     
         $item->user_id = \Auth::id();
         $item->name = $request->name;
         $item->description = $request->description;
         
-        if ($file = $request->file('file')) {
-            $item->file_name = $file->store('items');
-        }
-        
+        $item->file_name = $path;
+
         $item->save();
         
         return redirect()->route('items.index');
@@ -55,7 +59,7 @@ class ItemsController extends Controller
     // getでitems/idにアクセスされた場合の「取得表示処理」
     public function show($id)
     {
-        $item = Item::find($id);
+        $item = Item::findOrFail($id);
         
         return view('items.show', [
             'item' => $item,
