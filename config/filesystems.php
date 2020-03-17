@@ -14,6 +14,8 @@ return [
     */
 
     'default' => env('FILESYSTEM_DRIVER', 'local'),
+    
+    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,10 +59,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
+            'key' => env('AKIAIRBMNM4MIGX7MHUA'),
+            'secret' => env('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'),
+            'region' => env('ap-northeast-1'),
+            'bucket' => env('mykitchen-tomo'),
         ],
 
     ],
