@@ -32,25 +32,19 @@ class ItemsController extends Controller
     // postでitems/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
-        
         $this->validate($request, [
             'name' => 'required|max:191',
             'description' => 'required|max:191',
             'file' => 'nullable|file',
         ]);
-        
         $item = new Item;
         
-
-        $path = Storage::disk('s3')->put('/',$item, 'public');
-        
-     
+        $file = $request->file('file')->store('items', 's3');
         $item->user_id = \Auth::id();
         $item->name = $request->name;
         $item->description = $request->description;
+        $item->file_name = $file;
         
-        $item->file_name = $path;
-
         $item->save();
         
         return redirect()->route('items.index');

@@ -56,15 +56,13 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
+        
         's3' => [
             'driver' => 's3',
-            'key' => env('AKIAIRBMNM4MIGX7MHUA'),
-            'secret' => env('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'),
-            'region' => env('ap-northeast-1'),
-            'bucket' => env('mykitchen-tomo'),
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET'),
         ],
-
-    ],
-
+    ]
 ];
