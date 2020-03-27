@@ -21,7 +21,9 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->description }}</td>
                     <td>
-                        <img src="{{ Storage::disk('s3')->url(Auth::user()->file_name) }}">
+                        @if ($item->file_name)
+                            <img src="{{ Storage::url($item->file_name) }}">
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -32,5 +34,5 @@
     {{ $items->links('pagination::bootstrap-4') }}
     
     {!! link_to_route('items.create', '新規アイテムの投稿', [], ['class' => 'btn btn-primary']) !!}
-
+    
 @endsection
