@@ -22,7 +22,7 @@
                     <td>{{ $item->description }}</td>
                     <td>
                         @if ($item->file_name)
-                            <img src="{{ Storage::url($item->file_name) }}">
+                            <img src="{{ Storage::url($item->file_name) }}" width="100">
                         @endif
                     </td>
                 </tr>

@@ -14,7 +14,7 @@
                 </div>
                 
                 <div>
-                    <img src="{{ asset('storage/' . $item->file_name) }}" width="100">
+                    <img src="{{ Storage::url($item->file_name) }}" width="100">
                 </div>
                 
                 
