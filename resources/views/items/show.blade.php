@@ -20,7 +20,7 @@
         <tr>
             <th>Image</th>
             <td>
-                <img src="{{ Storage::disk('s3')->url(Auth::user()->file_name) }}">
+                <img src="{{ Storage::url($item->file_name) }}" width="100">
             </td>
         </tr>
     </table>
